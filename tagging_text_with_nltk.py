@@ -12,4 +12,4 @@ for l in my_file:
     tagged_tokens = nltk.pos_tag(tokens)
     print(tagged_tokens)
 
-
+my_file.close()
