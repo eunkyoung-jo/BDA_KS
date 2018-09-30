@@ -7,7 +7,7 @@ print(system_name)
 
 def set_Han_font():
     if system_name == 'Darwin': #Mac
-        #download https://github.com/ubermenschjo/dotfiles/blob/master/.fonts/HANBatang.ttf to '/Library/Fonts'
+        #download https://github.com/ubermenschjo/dotfiles/blob/master/.fonts/HANBatang.ttf under '/Library/Fonts'
         #rm /Users/myid/.matplotlib/*
         '''import matplotlib
         print(matplotlib.get_cachedir())'''
