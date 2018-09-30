@@ -6,17 +6,16 @@ system_name = platform.system()
 print(system_name)
 
 def set_Han_font():
-    if system_name == 'Darwin':
+    if system_name == 'Darwin': #Mac
         #download https://github.com/ubermenschjo/dotfiles/blob/master/.fonts/HANBatang.ttf to '/Library/Fonts'
-        #rm /Users/jek/.matplotlib/*
+        #rm /Users/myid/.matplotlib/*
         '''import matplotlib
         print(matplotlib.get_cachedir())'''
         #refer to https://github.com/matplotlib/matplotlib/issues/8427/
         font_name = fm.FontProperties(fname='/Library/Fonts/HANBatang.ttf').get_name()
     elif system_name == 'Linux':
-        ##apt-get install fonts-unfonts-core fonts-unfonts-extra
-        #maybe restart is needed
-        #rm ~/.cache/matplotlib
+        #sudo apt-get install fonts-unfonts-core fonts-unfonts-extra
+        #rm -rf ~/.cache/matplotlib/*
         font_name = fm.FontProperties(fname='/usr/share/fonts/truetype/unfonts-core/UnBatang.ttf').get_name()
     else: #Windows
         font_name = fm.FontProperties(fname='C:/Windows/Fonts/HBATANG.ttf').get_name()
