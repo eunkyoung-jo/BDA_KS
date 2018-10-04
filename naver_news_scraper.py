@@ -82,7 +82,7 @@ def do_scrape(query, s_date, e_date):
     ofile.close()
 
 
-query = "한국학"  # url 인코딩 에러는 parse.quote(query)
+query = "빅데이터"  # url 인코딩 에러는 parse.quote(query)
 s_date = "2018.09.01"
 e_date = "2018.09.07"
 
