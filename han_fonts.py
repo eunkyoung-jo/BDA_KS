@@ -12,7 +12,7 @@ def set_Han_font():
         '''import matplotlib
         print(matplotlib.get_cachedir())'''
         #refer to https://github.com/matplotlib/matplotlib/issues/8427/
-        font_name = fm.FontProperties(fname='/Library/Fonts/HANBatang.ttf').get_name()
+        font_name = fm.FontProperties(fname='/Library/Fonts/HanBatang.ttf').get_name()
     elif system_name == 'Linux':
         #sudo apt-get install fonts-unfonts-core fonts-unfonts-extra
         #rm -rf ~/.cache/matplotlib/*

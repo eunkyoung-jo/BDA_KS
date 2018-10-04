@@ -19,6 +19,7 @@ def clean_tokens(all_t):
     ignore = list('''!()-=+[]{};:'"\,<>./?@#$%^&*_~“”‘’''')
     c_tokens = [w for w in all_t if w not in ignore]
     print(c_tokens)
+    print(ignore)
     return c_tokens
 
 wc_tokens = clean_tokens(all_tokens)
