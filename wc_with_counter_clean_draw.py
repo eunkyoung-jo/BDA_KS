@@ -1,8 +1,8 @@
 #2018/10
 
 from tokenise_ko_with_nltk import *
-#all_tokens = tokenise_with_nltk('ko_input.txt')
 all_tokens = tokenise_with_nltk('한국학.txt')
+#all_tokens = tokenise_with_nltk('ko_input.txt')
 
 from collections import Counter
 # it gives the sorted result by it's value
