@@ -18,7 +18,9 @@ def set_Han_font():
         #rm -rf ~/.cache/matplotlib/*
         font_name = fm.FontProperties(fname='/usr/share/fonts/truetype/unfonts-core/UnBatang.ttf').get_name()
     else: #Windows
-        font_name = fm.FontProperties(fname='C:/Windows/Fonts/HBATANG.ttf').get_name()
+        #download hangul fonts from https://www.hancom.com/cs_center/csDownload.do
+        #decompress and copy *.ttf into font directory below.
+        font_name = fm.FontProperties(fname='C:/Windows/Fonts/HANBatang.ttf').get_name()
     plt.rc('font', family=font_name)
     return plt
 
