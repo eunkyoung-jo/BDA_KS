@@ -11,9 +11,11 @@ print(train_size, 'from', len(brown_tagged_sents))
 train_sents = brown_tagged_sents[:train_size]
 test_sents = brown_tagged_sents[train_size:]
 
-#default for backoff
 '''this code is for modelling backoff process
-in normally machine learning way of nlp'''
+in normally machine learning way of nlp
+backoff way: bigram->unigram->default
+'''
+#default for backoff
 def_tagger = nltk.DefaultTagger('NN')
 unigram_tagger = nltk.UnigramTagger(train_sents, backoff=def_tagger)
 bigram_tagger = nltk.BigramTagger(train_sents, backoff=unigram_tagger)
