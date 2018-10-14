@@ -65,12 +65,9 @@ def do_scrape(query, s_date, e_date):
                         continue
                     news_data = get_news(urls['href'])
                     #print(news_data)
-                    #pdate, title, btext, pcompany
                     if len(news_data) < 3 : continue
-                    if len(news_data) == 4 :
-                        ofile.write("{}\t{}\t{}\t{}\t[pcompany]{}\n".format(news_data[1], urls['href'], news_data[0], news_data[2], news_data[3]))
-                    else:
-                        ofile.write("{}\t{}\t{}\t{}\n".format(news_data[1], urls['href'], news_data[0], news_data[2]))
+                    #pdate, title, btext, pcompany
+                    ofile.write("{}\t{}\t{}\t{}\n".format(news_data[1], urls['href'], news_data[0], news_data[2]))
                     #ofile.write("{}\t{}\t{}\n".format(news_data[1], news_data[0], news_data[2]))
                     ofile.flush()
                     time.sleep(random.randint(0,3))
