@@ -83,6 +83,9 @@ query = "빅데이터"  # url 인코딩 에러는 parse.quote(query)
 s_date = "2018.09.01"
 e_date = "2018.09.07"
 
-do_scrape(query, s_date, e_date)
-
+if __name__ == "__main__":
+    try:
+        do_scrape(query, s_date, e_date)
+    except Exception as e:
+        print(e)
 
