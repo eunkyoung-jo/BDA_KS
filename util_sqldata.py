@@ -2,7 +2,6 @@
 #2018.10
 import dataset
 
-
 def txt2table(fn, db, tablename):
     infile = open(fn, 'r', encoding='utf-8')
     lines = infile.readlines()
@@ -32,6 +31,27 @@ def table2txt(db, tablename, cols, fn):
             item.append(rec[col])
         outfile.write('%s' %('\t'.join(item)))
     outfile.close()
+
+
+def table2xlsx(dbname, tablename, fn):
+    #sudo pip3 install openpyxl
+    import pandas as pd
+    db = dataset.connect('sqlite:///%s' %dbname)
+    records = db[tablename].all()
+    columns = db[tablename].columns
+    all_rec = [rec for rec in records]
+    odata = pd.DataFrame(all_rec, columns=columns)
+    outfile = pd.ExcelWriter(fn)
+    odata.to_excel(outfile, 'meta')
+    outfile.save()
+
+def xlsx2table(dbname, tablename, fn):
+    import pandas as pd
+    db = dataset.connect('sqlite:///%s' %dbname)
+    ''' read xlsx
+    upload & insert data into table'''
+
+    return
 
 
 if __name__ == "__main__":
