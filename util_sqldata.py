@@ -33,6 +33,16 @@ def table2txt(db, tablename, cols, fn):
     outfile.close()
 
 
+def xlsx2table(dbname, tablename, fn):
+    import pandas as pd
+    import sqlite3 #pandas.to_sql() uses sqlite3 or sqlalchemy
+    condb = sqlite3.connect(dbname)
+    idata = pd.read_excel(fn, dtype=str) #without dtype(str), '00001' is to be '1'
+    idata.to_excel('tmp.xlsx')
+    idata.to_sql(name='students', con=condb, if_exists='replace') #'fail', 'replace'. 'append'
+    condb.close()
+    return
+
 def table2xlsx(dbname, tablename, fn):
     #sudo pip3 install openpyxl
     import pandas as pd
@@ -45,22 +55,16 @@ def table2xlsx(dbname, tablename, fn):
     odata.to_excel(outfile, 'meta')
     outfile.save()
 
-def xlsx2table(dbname, tablename, fn):
-    import pandas as pd
-    db = dataset.connect('sqlite:///%s' %dbname)
-    ''' read xlsx
-    upload & insert data into table'''
-
-    return
-
-
 if __name__ == "__main__":
     try:
-        kdb = dataset.connect('sqlite:///data/kdb.db')
-
+        #Week 7:2018.10.16
+        '''kdb = dataset.connect('sqlite:///data/kdb.db')
         txt2table('data/한국학.txt', kdb, 'kstudies')
         txt2table('data/한글날.txt', kdb, 'HangulDay')
         table2txt(kdb, 'HangulDay', ['title', 'btext'], 'mydata.txt')
-
+        '''
+        #Week 9
+        xlsx2table('data/kdb.db', 'students', 'students.xlsx')
+        table2xlsx('data/kdb.db', 'students', 'data/students_db.xlsx')
     except Exception as e:
         print(e)
