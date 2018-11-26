@@ -2,7 +2,8 @@
 #2018.10
 import dataset
 
-def txt2table(fn, db, tablename):
+def txt2table(fn, dbname, tablename):
+    db = dataset.connect('sqlite:///%s' %dbname)
     infile = open(fn, 'r', encoding='utf-8')
     lines = infile.readlines()
     infile.close()
@@ -21,7 +22,8 @@ def txt2table(fn, db, tablename):
         db[tablename].upsert(record, ['idx'])
 
 
-def table2txt(db, tablename, cols, fn):
+def table2txt(dbname, tablename, cols, fn):
+    db = dataset.connect('sqlite:///%s' %dbname)
     outfile = open(fn, 'w', encoding='utf-8')
 
     records = db[tablename].all()
@@ -31,7 +33,6 @@ def table2txt(db, tablename, cols, fn):
             item.append(rec[col])
         outfile.write('%s' %('\t'.join(item)))
     outfile.close()
-
 
 def xlsx2table(dbname, tablename, fn):
     import pandas as pd
@@ -58,13 +59,15 @@ def table2xlsx(dbname, tablename, fn):
 if __name__ == "__main__":
     try:
         #Week 7:2018.10.16
-        '''kdb = dataset.connect('sqlite:///data/kdb.db')
-        txt2table('data/한국학.txt', kdb, 'kstudies')
-        txt2table('data/한글날.txt', kdb, 'HangulDay')
-        table2txt(kdb, 'HangulDay', ['title', 'btext'], 'mydata.txt')
+        '''
+        txt2table('data/한국학.txt', 'data/kdb', 'kstudies')
+        txt2table('data/한글날.txt', 'data/kdb', 'HangulDay')
+        table2txt('data/kdb', 'HangulDay', ['title', 'btext'], 'mydata.txt')
         '''
         #Week 9
         xlsx2table('data/kdb.db', 'students', 'students.xlsx')
         table2xlsx('data/kdb.db', 'students', 'data/students_db.xlsx')
+
+        #Task1: Make xlxs file from kstudies table in kdb.db
     except Exception as e:
         print(e)
