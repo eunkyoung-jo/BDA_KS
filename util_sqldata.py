@@ -40,7 +40,7 @@ def xlsx2table(dbname, tablename, fn):
     condb = sqlite3.connect(dbname)
     idata = pd.read_excel(fn, dtype=str) #without dtype(str), '00001' is to be '1'
     idata.to_excel('tmp.xlsx')
-    idata.to_sql(name='students', con=condb, if_exists='replace') #'fail', 'replace'. 'append'
+    idata.to_sql(name=tablename, con=condb, if_exists='replace') #'fail', 'replace'. 'append'
     condb.close()
     return
 
