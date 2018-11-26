@@ -46,15 +46,8 @@ def xlsx2table(dbname, tablename, fn):
 
 def table2xlsx(dbname, tablename, fn):
     #sudo pip3 install openpyxl
-    import pandas as pd
-    db = dataset.connect('sqlite:///%s' %dbname)
-    records = db[tablename].all()
-    columns = db[tablename].columns
-    all_rec = [rec for rec in records]
-    odata = pd.DataFrame(all_rec, columns=columns)
-    outfile = pd.ExcelWriter(fn)
-    odata.to_excel(outfile, 'meta')
-    outfile.save()
+    #fill out
+
 
 if __name__ == "__main__":
     try:
