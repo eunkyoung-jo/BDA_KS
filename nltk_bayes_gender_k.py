@@ -14,7 +14,7 @@ klabeled_names = m_namelist + f_namelist
 
 #to extract the last letter of a name
 def gender_kfeatures(word):
-    return {'last_letter':list(word)[-1]}
+    return {'last_letter':word[-1]}
 
 #to make data sets for training, testing(inner validation)
 # You should fill out below.
