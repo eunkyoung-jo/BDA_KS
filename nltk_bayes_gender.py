@@ -37,6 +37,7 @@ print('Shrek:',tri_cat)
 tri_cat=n_classifier.classify(gender_features('Emma'))
 print('Emma:',tri_cat)
 
+### evaluating ####
 def evaluate_cat(classifier, names, gender):
     n_s = 0
     for (name, gender) in names:
