@@ -2,8 +2,8 @@
 #gender identification
 from nltk.corpus import names
 import nltk
-
 #have a look at '~/nltk_data/corpora/names/[male.txt, female.txt]'
+#to get make names and female names as data
 m_names = [(name, 'male') for name in names.words('male.txt')]
 f_names = [(name, 'female') for name in names.words('female.txt')]
 labeled_names = m_names + f_names
@@ -24,6 +24,7 @@ def gender_features(word):
 featuresets = [(gender_features(n), gender) for (n, gender) in labeled_names]
 train_set, test_set = featuresets[500:], featuresets[:500]
 n_classifier = nltk.NaiveBayesClassifier.train(train_set)
+print('test set accuracy:', nltk.classify.accuracy(n_classifier, test_set))
 print('all:', len(featuresets))
 print('# of train:', len(train_set))
 print('# of test:', 500, round(500/len(featuresets),2))
@@ -54,5 +55,4 @@ def evaluate_cat(classifier, names, gender):
 # every running result could be different since suffled.
 evaluate_cat(n_classifier, m_names, 'male')
 evaluate_cat(n_classifier, f_names, 'female')
-
 
