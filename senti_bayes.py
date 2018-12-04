@@ -775,9 +775,12 @@ if __name__ == '__main__':
     from nltk.classify import NaiveBayesClassifier
     naive_bayes = NaiveBayesClassifier.train
     demo_tweets(naive_bayes)
-
-    #demo_sent_subjectivity("she's an artist , but hasn't picked up a brush in a year . ")
-    #demo_liu_hu_lexicon("This movie was actually neither that funny, nor super witty.", plot=True)
-    #demo_vader_instance("This movie was actually neither that funny, nor super witty.")
-    #demo_vader_tweets()
+    print('[subjectivity]')
+    demo_sent_subjectivity("she's an artist , but hasn't picked up a brush in a year . ")
+    print('[chart of posivie, negative, and neutral]')
+    demo_liu_hu_lexicon("This movie was actually neither that funny, nor super witty.", plot=True)
+    print('[vader polarity score]')
+    demo_vader_instance("This movie was actually neither that funny, nor super witty.")
+    print('[vader tweet evaluation]')
+    demo_vader_tweets()
 
