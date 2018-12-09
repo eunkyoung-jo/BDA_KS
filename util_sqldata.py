@@ -2,7 +2,7 @@
 #2018.10
 import dataset
 
-def txt2table(fn, dbname, tablename):
+def txt2table(fn, cols, dbname, tablename):
     db = dataset.connect('sqlite:///%s' %dbname)
     infile = open(fn, 'r', encoding='utf-8')
     lines = infile.readlines()
@@ -11,11 +11,12 @@ def txt2table(fn, dbname, tablename):
     idx = 0
     for l in lines:
         tab = l.split('\t')
+        if len(tab) < len(cols) :
+            print('txt file columns !=', cols)
+            return
         record = {}
-        record['date'] = tab[0]
-        record['url'] = tab[1]
-        record['title'] = tab[2]
-        record['btext'] = tab[3]
+        for i, col in enumerate(cols) :
+            record[col] = tab[i]
         record['idx'] = idx
         idx += 1
 
@@ -31,7 +32,7 @@ def table2txt(dbname, tablename, cols, fn):
         item = []
         for col in cols :
             item.append(rec[col])
-        outfile.write('%s' %('\t'.join(item)))
+        outfile.write('%s\n' %('\t'.join(item)))
     outfile.close()
 
 def xlsx2table(dbname, tablename, fn):
@@ -46,21 +47,30 @@ def xlsx2table(dbname, tablename, fn):
 
 def table2xlsx(dbname, tablename, fn):
     #sudo pip3 install openpyxl
-    #fill out
-
+    import pandas as pd
+    db = dataset.connect('sqlite:///%s' %dbname)
+    records = db[tablename].all()
+    columns = db[tablename].columns
+    all_rec = [rec for rec in records]
+    odata = pd.DataFrame(all_rec, columns=columns)
+    outfile = pd.ExcelWriter(fn)
+    odata.to_excel(outfile, 'meta')
+    outfile.save()
 
 if __name__ == "__main__":
     try:
         #Week 7:2018.10.16
         '''
-        txt2table('data/한국학.txt', 'data/kdb', 'kstudies')
-        txt2table('data/한글날.txt', 'data/kdb', 'HangulDay')
-        table2txt('data/kdb', 'HangulDay', ['title', 'btext'], 'mydata.txt')
+        txt2table('data/한국학.txt', ['date', 'url', 'title', 'btext'], 'data/kdb', 'kstudies')
+        txt2table('data/한글날.txt', ['date', 'url', 'title', 'btext'], 'data/kdb', 'HangulDay')
+        table2txt('data/kdb.db', 'HangulDay', ['title', 'btext'], 'mydata.txt')
         '''
         #Week 9
-        xlsx2table('data/kdb.db', 'students', 'students.xlsx')
-        table2xlsx('data/kdb.db', 'students', 'data/students_db.xlsx')
-
         #Task1: Make xlxs file from kstudies table in kdb.db
+        '''xlsx2table('data/kdb.db', 'students', 'students.xlsx')
+        table2xlsx('data/kdb.db', 'students', 'data/students_db.xlsx')
+        '''
+        #week 14
+        table2txt('data/periodicals.db', 'article_body_ma_013', ['body'], 'ma_013.txt')
     except Exception as e:
         print(e)
